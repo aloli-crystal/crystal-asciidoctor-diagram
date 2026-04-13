@@ -1,0 +1,67 @@
+= Usage
+
+== In AsciiDoc Documents
+
+[source,asciidoc]
+....
+[plantuml,target=my-diagram,format=svg]
+----
+@startuml
+Alice -> Bob: Hello
+Bob --> Alice: Hi there
+@enduml
+----
+....
+
+[source,asciidoc]
+....
+[mermaid]
+----
+graph TD
+    A --> B
+    B --> C
+----
+....
+
+== Configuring Tool Paths
+
+[source,asciidoc]
+----
+:plantuml-path: /usr/local/bin/plantuml
+:mermaid-path: /usr/local/bin/mmdc
+:graphviz-path: /usr/bin/dot
+:d2-path: /usr/local/bin/d2
+----
+
+== Output Format
+
+Default is SVG. Override globally or per block:
+
+[source,asciidoc]
+----
+:diagram-format: png
+----
+
+== CLI
+
+[source,bash]
+----
+crystal-asciidoctor-diagram -o output.html input.adoc
+crystal-asciidoctor-diagram -f png -t plantuml=/usr/bin/plantuml input.adoc
+----
+
+== Library API
+
+[source,crystal]
+----
+require "crystal-asciidoctor-diagram"
+
+# Extensions are registered automatically on require.
+doc = Asciidoctor.load_file("input.adoc", {"safe" => "safe"})
+html = doc.converter.not_nil!.convert(doc)
+File.write("output.html", html)
+----
+
+== Caching
+
+Generated images are cached in `.asciidoctor/diagram/` (configurable via `:diagram-cachedir:` attribute). The cache key is the SHA256 hex digest of the diagram source.

@@ -1,0 +1,20 @@
+= Crystal Asciidoctor Diagram
+
+Extension Asciidoctor pour le rendu de diagrammes via des outils externes. Portage Crystal de la gem Ruby https://github.com/asciidoctor/asciidoctor-diagram[asciidoctor-diagram] v3.2.1.
+
+== Fonctionnalites
+
+* Processeurs de blocs pour 15 types de diagrammes : PlantUML, Mermaid, Ditaa, Graphviz/Dot, BlockDiag, SeqDiag, ActDiag, NwDiag, Umlet, Svgbob, Pikchr, D2, LilyPond, Gnuplot
+* Formats de sortie SVG (par defaut) et PNG
+* Cache fichier base sur le SHA256 du source
+* Chemins des outils configurables via les attributs du document
+* Integration SVG en ligne ou references vers des fichiers image
+* *API bibliotheque* et *CLI*
+
+== Prerequis
+
+Les outils de diagramme externes doivent etre installes separement.
+
+== Licence
+
+MIT

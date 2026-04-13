@@ -1,0 +1,46 @@
+= Utilisation
+
+== Dans les Documents AsciiDoc
+
+[source,asciidoc]
+....
+[plantuml,target=mon-diagramme,format=svg]
+----
+@startuml
+Alice -> Bob: Bonjour
+Bob --> Alice: Salut
+@enduml
+----
+....
+
+== Configuration des Chemins d'Outils
+
+[source,asciidoc]
+----
+:plantuml-path: /usr/local/bin/plantuml
+:mermaid-path: /usr/local/bin/mmdc
+:graphviz-path: /usr/bin/dot
+:d2-path: /usr/local/bin/d2
+----
+
+== CLI
+
+[source,bash]
+----
+crystal-asciidoctor-diagram -o sortie.html entree.adoc
+----
+
+== API Bibliotheque
+
+[source,crystal]
+----
+require "crystal-asciidoctor-diagram"
+
+doc = Asciidoctor.load_file("entree.adoc", {"safe" => "safe"})
+html = doc.converter.not_nil!.convert(doc)
+File.write("sortie.html", html)
+----
+
+== Cache
+
+Les images generees sont mises en cache dans `.asciidoctor/diagram/`.

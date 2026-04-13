@@ -1,0 +1,37 @@
+= Crystal Asciidoctor Diagram
+
+Asciidoctor extension for rendering diagrams by calling external tools. Crystal port of the https://github.com/asciidoctor/asciidoctor-diagram[asciidoctor-diagram] Ruby gem v3.2.1.
+
+== Features
+
+* Block processors for 15 diagram types: PlantUML, Mermaid, Ditaa, Graphviz/Dot, BlockDiag, SeqDiag, ActDiag, NwDiag, Umlet, Svgbob, Pikchr, D2, LilyPond, Gnuplot
+* SVG (default) and PNG output formats
+* File-based cache using SHA256 of source to avoid regenerating unchanged diagrams
+* Configurable tool paths via document attributes
+* Inline SVG embedding or image file references
+* *Library API* and *CLI*
+
+== Prerequisites
+
+The external diagram tools must be installed separately. This shard shells out to them via `Process.run`.
+
+[cols="1,2,2"]
+|===
+| Tool | Install | Notes
+
+| PlantUML | `brew install plantuml` | Requires Java
+| Mermaid | `npm install -g @mermaid-js/mermaid-cli` | Provides `mmdc`
+| Ditaa | `brew install ditaa` | Requires Java
+| Graphviz | `brew install graphviz` | Provides `dot`, `neato`, etc.
+| D2 | `brew install d2` |
+| Svgbob | `cargo install svgbob_cli` |
+| Pikchr | https://pikchr.org[pikchr.org] | Single C file
+| BlockDiag | `pip install blockdiag` | Also seqdiag, actdiag, nwdiag
+| Umlet | https://www.umlet.com[umlet.com] |
+| LilyPond | `brew install lilypond` | Music notation
+| Gnuplot | `brew install gnuplot` | Plotting
+|===
+
+== License
+
+MIT

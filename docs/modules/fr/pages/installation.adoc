@@ -1,0 +1,24 @@
+= Installation
+
+== En tant que Bibliotheque
+
+Ajoutez a votre `shard.yml` :
+
+[source,yaml]
+----
+dependencies:
+  crystal-asciidoctor-diagram:
+    github: aloli-crystal/crystal-asciidoctor-diagram
+    version: "~> 3.2"
+----
+
+Puis executez `shards install`.
+
+== Binaire CLI
+
+[source,bash]
+----
+git clone https://github.com/aloli-crystal/crystal-asciidoctor-diagram.git
+cd crystal-asciidoctor-diagram
+shards build --release
+----
