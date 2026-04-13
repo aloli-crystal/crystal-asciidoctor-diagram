@@ -1,0 +1,162 @@
+= crystal-asciidoctor-diagram
+:toc: left
+:toclevels: 2
+
+Asciidoctor extension for rendering diagrams by calling external tools.
+Crystal port of the https://github.com/asciidoctor/asciidoctor-diagram[asciidoctor-diagram] Ruby gem v3.2.1.
+
+link:README.fr.adoc[Version francaise]
+
+== Features
+
+* Block processors for 15 diagram types: PlantUML, Mermaid, Ditaa, Graphviz/Dot, BlockDiag, SeqDiag, ActDiag, NwDiag, Umlet, Svgbob, Pikchr, D2, LilyPond, Gnuplot
+* SVG (default) and PNG output formats
+* File-based cache using SHA256 of source to avoid regenerating unchanged diagrams
+* Configurable tool paths via document attributes
+* Inline SVG embedding or image file references
+* **Library API** for use in Crystal applications
+* **CLI** for command-line usage
+
+== Prerequisites
+
+The external diagram tools must be installed separately.
+This shard only shells out to them via `Process.run`.
+
+[cols="1,2,2"]
+|===
+| Tool | Install | Notes
+
+| PlantUML | `brew install plantuml` or https://plantuml.com/download[download jar] | Requires Java
+| Mermaid | `npm install -g @mermaid-js/mermaid-cli` | Provides `mmdc`
+| Ditaa | `brew install ditaa` or https://github.com/stathissideris/ditaa[download] | Requires Java
+| Graphviz | `brew install graphviz` | Provides `dot`, `neato`, etc.
+| D2 | `brew install d2` or https://d2lang.com[d2lang.com] |
+| Svgbob | `cargo install svgbob_cli` |
+| Pikchr | https://pikchr.org[pikchr.org] | Single C file, compile yourself
+| BlockDiag | `pip install blockdiag` | Also seqdiag, actdiag, nwdiag
+| Umlet | https://www.umlet.com[umlet.com] |
+| LilyPond | `brew install lilypond` | Music notation
+| Gnuplot | `brew install gnuplot` | Plotting
+|===
+
+== Installation
+
+=== As a library
+
+Add to your `shard.yml`:
+
+[source,yaml]
+----
+dependencies:
+  crystal-asciidoctor-diagram:
+    github: aloli-crystal/crystal-asciidoctor-diagram
+    version: "~> 3.2"
+----
+
+Then run `shards install`.
+
+=== CLI binary
+
+[source,bash]
+----
+git clone https://github.com/aloli-crystal/crystal-asciidoctor-diagram.git
+cd crystal-asciidoctor-diagram
+shards build --release
+----
+
+== Usage
+
+=== In AsciiDoc documents
+
+[source,asciidoc]
+....
+[plantuml,target=my-diagram,format=svg]
+----
+@startuml
+Alice -> Bob: Hello
+Bob --> Alice: Hi there
+@enduml
+----
+....
+
+[source,asciidoc]
+....
+[mermaid]
+----
+graph TD
+    A --> B
+    B --> C
+----
+....
+
+=== Configuring tool paths
+
+Set document attributes to override default tool paths:
+
+[source,asciidoc]
+----
+:plantuml-path: /usr/local/bin/plantuml
+:mermaid-path: /usr/local/bin/mmdc
+:graphviz-path: /usr/bin/dot
+:d2-path: /usr/local/bin/d2
+----
+
+=== Output format
+
+The default output format is SVG.
+Override per-block or globally:
+
+[source,asciidoc]
+----
+:diagram-format: png
+----
+
+Or per block:
+
+[source,asciidoc]
+....
+[plantuml,format=png]
+----
+@startuml
+...
+@enduml
+----
+....
+
+=== CLI
+
+[source,bash]
+----
+crystal-asciidoctor-diagram -o output.html input.adoc
+crystal-asciidoctor-diagram -f png -t plantuml=/usr/bin/plantuml input.adoc
+----
+
+=== Library API
+
+[source,crystal]
+----
+require "crystal-asciidoctor-diagram"
+
+# Extensions are registered automatically on require.
+# Just load and convert your document:
+doc = Asciidoctor.load_file("input.adoc", {"safe" => "safe"})
+html = doc.converter.not_nil!.convert(doc)
+File.write("output.html", html)
+----
+
+== Caching
+
+Generated images are cached in `.asciidoctor/diagram/` (configurable via `:diagram-cachedir:` attribute).
+The cache key is the SHA256 hex digest of the diagram source.
+Identical source produces the same key, so unchanged diagrams are not regenerated.
+
+== License
+
+MIT -- see link:LICENSE[].
+
+== Contributing
+
+. Fork the repository
+. Create a feature branch
+. Write specs for your changes
+. Submit a pull request

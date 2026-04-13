@@ -1,0 +1,162 @@
+= crystal-asciidoctor-diagram
+:toc: left
+:toclevels: 2
+
+Extension Asciidoctor pour le rendu de diagrammes via des outils externes.
+Portage Crystal de la gem Ruby https://github.com/asciidoctor/asciidoctor-diagram[asciidoctor-diagram] v3.2.1.
+
+link:README.adoc[English version]
+
+== Fonctionnalites
+
+* Processeurs de blocs pour 15 types de diagrammes : PlantUML, Mermaid, Ditaa, Graphviz/Dot, BlockDiag, SeqDiag, ActDiag, NwDiag, Umlet, Svgbob, Pikchr, D2, LilyPond, Gnuplot
+* Formats de sortie SVG (par defaut) et PNG
+* Cache fichier base sur le SHA256 du source pour eviter la regeneration des diagrammes inchanges
+* Chemins des outils configurables via les attributs du document
+* Integration SVG en ligne ou references vers des fichiers image
+* **API bibliotheque** pour utilisation dans des applications Crystal
+* **CLI** pour utilisation en ligne de commande
+
+== Prerequis
+
+Les outils de diagramme externes doivent etre installes separement.
+Ce shard ne fait que les appeler via `Process.run`.
+
+[cols="1,2,2"]
+|===
+| Outil | Installation | Notes
+
+| PlantUML | `brew install plantuml` ou https://plantuml.com/download[telecharger le jar] | Necessite Java
+| Mermaid | `npm install -g @mermaid-js/mermaid-cli` | Fournit `mmdc`
+| Ditaa | `brew install ditaa` ou https://github.com/stathissideris/ditaa[telecharger] | Necessite Java
+| Graphviz | `brew install graphviz` | Fournit `dot`, `neato`, etc.
+| D2 | `brew install d2` ou https://d2lang.com[d2lang.com] |
+| Svgbob | `cargo install svgbob_cli` |
+| Pikchr | https://pikchr.org[pikchr.org] | Fichier C unique, a compiler
+| BlockDiag | `pip install blockdiag` | Aussi seqdiag, actdiag, nwdiag
+| Umlet | https://www.umlet.com[umlet.com] |
+| LilyPond | `brew install lilypond` | Notation musicale
+| Gnuplot | `brew install gnuplot` | Graphiques
+|===
+
+== Installation
+
+=== En tant que bibliotheque
+
+Ajoutez a votre `shard.yml` :
+
+[source,yaml]
+----
+dependencies:
+  crystal-asciidoctor-diagram:
+    github: aloli-crystal/crystal-asciidoctor-diagram
+    version: "~> 3.2"
+----
+
+Puis executez `shards install`.
+
+=== Binaire CLI
+
+[source,bash]
+----
+git clone https://github.com/aloli-crystal/crystal-asciidoctor-diagram.git
+cd crystal-asciidoctor-diagram
+shards build --release
+----
+
+== Utilisation
+
+=== Dans les documents AsciiDoc
+
+[source,asciidoc]
+....
+[plantuml,target=mon-diagramme,format=svg]
+----
+@startuml
+Alice -> Bob: Bonjour
+Bob --> Alice: Salut
+@enduml
+----
+....
+
+[source,asciidoc]
+....
+[mermaid]
+----
+graph TD
+    A --> B
+    B --> C
+----
+....
+
+=== Configuration des chemins d'outils
+
+Definissez les attributs du document pour remplacer les chemins par defaut :
+
+[source,asciidoc]
+----
+:plantuml-path: /usr/local/bin/plantuml
+:mermaid-path: /usr/local/bin/mmdc
+:graphviz-path: /usr/bin/dot
+:d2-path: /usr/local/bin/d2
+----
+
+=== Format de sortie
+
+Le format de sortie par defaut est SVG.
+Redefinissez par bloc ou globalement :
+
+[source,asciidoc]
+----
+:diagram-format: png
+----
+
+Ou par bloc :
+
+[source,asciidoc]
+....
+[plantuml,format=png]
+----
+@startuml
+...
+@enduml
+----
+....
+
+=== CLI
+
+[source,bash]
+----
+crystal-asciidoctor-diagram -o sortie.html entree.adoc
+crystal-asciidoctor-diagram -f png -t plantuml=/usr/bin/plantuml entree.adoc
+----
+
+=== API bibliotheque
+
+[source,crystal]
+----
+require "crystal-asciidoctor-diagram"
+
+# Les extensions sont enregistrees automatiquement au require.
+# Chargez et convertissez simplement votre document :
+doc = Asciidoctor.load_file("entree.adoc", {"safe" => "safe"})
+html = doc.converter.not_nil!.convert(doc)
+File.write("sortie.html", html)
+----
+
+== Cache
+
+Les images generees sont mises en cache dans `.asciidoctor/diagram/` (configurable via l'attribut `:diagram-cachedir:`).
+La cle de cache est le condensat hexadecimal SHA256 du source du diagramme.
+Un source identique produit la meme cle, donc les diagrammes inchanges ne sont pas regeneres.
+
+== Licence
+
+MIT -- voir link:LICENSE[].
+
+== Contribuer
+
+. Forkez le depot
+. Creez une branche de fonctionnalite
+. Ecrivez des specs pour vos modifications
+. Soumettez une pull request

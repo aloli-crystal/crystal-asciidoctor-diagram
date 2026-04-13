@@ -1,0 +1,28 @@
+name: crystal-asciidoctor-diagram
+version: 3.2.1
+
+description: |
+  Asciidoctor extension for rendering diagrams by calling external tools
+  (PlantUML, Mermaid, Ditaa, Graphviz, D2, etc.).
+  Crystal port of the asciidoctor-diagram Ruby gem v3.2.1.
+
+authors:
+  - Philippe Nénert <philippe@aloli.fr>
+
+license: MIT
+
+dependencies:
+  crystal-asciidoctor:
+    github: aloli-crystal/crystal-asciidoctor
+    version: "~> 2.0"
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    version: "~> 1.6"
+
+targets:
+  crystal-asciidoctor-diagram:
+    main: bin/crystal-asciidoctor-diagram
+
+crystal: ">= 1.19.0"
