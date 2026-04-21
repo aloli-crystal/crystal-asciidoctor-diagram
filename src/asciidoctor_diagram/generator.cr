@@ -231,7 +231,7 @@ module AsciidoctorDiagram
       error = IO::Memory.new
       status = Process.run(cmd, args: args, input: IO::Memory.new(source), output: output, error: error)
       unless status.success?
-        raise ToolError.new("plantuml failed (exit #{status.exit_code}): #{error.to_s}")
+        raise ToolError.new("plantuml failed (exit #{status.exit_code}): #{error}")
       end
       File.write(output_file, output.to_s)
     end
@@ -242,7 +242,7 @@ module AsciidoctorDiagram
       error = IO::Memory.new
       status = Process.run(cmd, args: ["--svg-only", input_file], output: output, error: error)
       unless status.success?
-        raise ToolError.new("pikchr failed (exit #{status.exit_code}): #{error.to_s}")
+        raise ToolError.new("pikchr failed (exit #{status.exit_code}): #{error}")
       end
       File.write(output_file, output.to_s)
     end
