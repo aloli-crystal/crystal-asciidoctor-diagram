@@ -1,0 +1,9 @@
+= Journal des modifications
+:toc: left
+:toc-title: Versions
+:toclevels: 2
+
+== v3.2.1.1 — 2026-04-22
+
+* Ajout du linter *ameba* à la CI avec configuration `.ameba.yml` partagée alignée sur l'écosystème Crystal.
+* Correction de deux occurrences de `Lint/RedundantStringCoercion` : suppression des `.to_s` redondants dans les interpolations de chaînes de `generator.cr`.
