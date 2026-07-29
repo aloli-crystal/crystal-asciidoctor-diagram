@@ -46,15 +46,15 @@ Default is SVG. Override globally or per block:
 
 [source,bash]
 ----
-crystal-asciidoctor-diagram -o output.html input.adoc
-crystal-asciidoctor-diagram -f png -t plantuml=/usr/bin/plantuml input.adoc
+asciicrystal-diagram -o output.html input.adoc
+asciicrystal-diagram -f png -t plantuml=/usr/bin/plantuml input.adoc
 ----
 
 == Library API
 
 [source,crystal]
 ----
-require "crystal-asciidoctor-diagram"
+require "asciicrystal-diagram"
 
 # Extensions are registered automatically on require.
 doc = Asciidoctor.load_file("input.adoc", {"safe" => "safe"})

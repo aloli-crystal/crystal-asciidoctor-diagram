@@ -1,4 +1,4 @@
-module AsciidoctorDiagram
+module AsciicrystalDiagram
   # A block processor that handles a specific diagram type.
   #
   # When a block with the diagram name is encountered (e.g. `[plantuml]`),
@@ -6,7 +6,7 @@ module AsciidoctorDiagram
   # 1. Reads the diagram source from the block content
   # 2. Calls the external tool to generate an image
   # 3. Returns either an inline SVG (pass block) or an image block
-  class DiagramBlockProcessor < Asciidoctor::Extensions::BlockProcessor
+  class DiagramBlockProcessor < Asciicrystal::Extensions::BlockProcessor
     getter tool_name : String
 
     def initialize(@tool_name : String)
@@ -16,7 +16,7 @@ module AsciidoctorDiagram
       } of String => String | Bool | Int32 | Array(String) | Set(Symbol) | Symbol)
     end
 
-    def process(parent : Asciidoctor::AbstractBlock, reader : Asciidoctor::Reader, attributes : Hash(String, String)) : Asciidoctor::AbstractBlock?
+    def process(parent : Asciicrystal::AbstractBlock, reader : Asciicrystal::Reader, attributes : Hash(String, String)) : Asciicrystal::AbstractBlock?
       doc = parent.document
       source = reader.source_lines.join("\n")
       return nil if source.strip.empty?
@@ -89,8 +89,8 @@ module AsciidoctorDiagram
   end
 
   # Extension group that registers all diagram block processors.
-  class DiagramExtensionGroup < Asciidoctor::Extensions::Group
-    def activate(registry : Asciidoctor::Extensions::Registry) : Nil
+  class DiagramExtensionGroup < Asciicrystal::Extensions::Group
+    def activate(registry : Asciicrystal::Extensions::Registry) : Nil
       DIAGRAM_NAMES.each do |name|
         registry.block(DiagramBlockProcessor.new(name), name)
       end
@@ -98,6 +98,6 @@ module AsciidoctorDiagram
   end
 
   # Register the extension group globally so that it activates automatically
-  # when crystal-asciidoctor-diagram is required.
-  Asciidoctor::Extensions.register(:diagram, DiagramExtensionGroup)
+  # when asciicrystal-diagram is required.
+  Asciicrystal::Extensions.register(:diagram, DiagramExtensionGroup)
 end

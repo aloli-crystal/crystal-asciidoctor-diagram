@@ -1,9 +1,9 @@
-require "crystal-asciidoctor"
+require "asciicrystal"
 require "./asciidoctor_diagram/cache"
 require "./asciidoctor_diagram/generator"
 require "./asciidoctor_diagram/extension"
 
-module AsciidoctorDiagram
+module AsciicrystalDiagram
   # Lue au compile-time depuis `shard.yml` via le macro `read_file`.
   # Cf. note mémoire `feedback_shard_version_macro.md` (mémoire ALOLI).
   VERSION = {{

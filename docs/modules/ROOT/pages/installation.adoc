@@ -7,9 +7,9 @@ Add to your `shard.yml`:
 [source,yaml]
 ----
 dependencies:
-  crystal-asciidoctor-diagram:
-    github: aloli-crystal/crystal-asciidoctor-diagram
-    version: "~> 3.2"
+  asciicrystal-diagram:
+    github: aloli-crystal/asciicrystal-diagram
+    version: "~> 3.2.1.3"
 ----
 
 Then run `shards install`.
@@ -18,7 +18,7 @@ Then run `shards install`.
 
 [source,bash]
 ----
-git clone https://github.com/aloli-crystal/crystal-asciidoctor-diagram.git
-cd crystal-asciidoctor-diagram
+git clone https://github.com/aloli-crystal/asciicrystal-diagram.git
+cd asciicrystal-diagram
 shards build --release
 ----

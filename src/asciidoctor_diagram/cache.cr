@@ -1,6 +1,6 @@
 require "digest/sha256"
 
-module AsciidoctorDiagram
+module AsciicrystalDiagram
   # File-based cache for generated diagram images.
   #
   # Uses SHA256 of the diagram source to avoid regenerating identical diagrams.

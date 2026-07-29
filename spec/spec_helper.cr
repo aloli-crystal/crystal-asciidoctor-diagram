@@ -2,7 +2,7 @@ require "spec"
 require "../src/asciidoctor_diagram"
 
 # Unregister global extensions before each test to avoid interference.
-Asciidoctor::Extensions.unregister_all
+Asciicrystal::Extensions.unregister_all
 
 module SpecHelper
   SPEC_OUTPUT_DIR = File.join(__DIR__, "output")

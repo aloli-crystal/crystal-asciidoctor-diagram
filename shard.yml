@@ -1,5 +1,5 @@
-name: crystal-asciidoctor-diagram
-version: 3.2.1.2
+name: asciicrystal-diagram
+version: 3.2.1.3
 
 description: |
   Asciidoctor extension for rendering diagrams by calling external tools
@@ -12,9 +12,9 @@ authors:
 license: MIT
 
 dependencies:
-  crystal-asciidoctor:
-    github: aloli-crystal/crystal-asciidoctor
-    version: "~> 2.0"
+  asciicrystal:
+    github: aloli-crystal/asciicrystal
+    version: "~> 2.0.26.12"
 
 development_dependencies:
   ameba:
@@ -22,7 +22,7 @@ development_dependencies:
     version: "~> 1.6"
 
 targets:
-  crystal-asciidoctor-diagram:
-    main: bin/crystal-asciidoctor-diagram
+  asciicrystal-diagram:
+    main: bin/asciicrystal-diagram
 
 crystal: ">= 1.19.0"

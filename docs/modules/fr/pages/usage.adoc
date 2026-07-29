@@ -27,14 +27,14 @@ Bob --> Alice: Salut
 
 [source,bash]
 ----
-crystal-asciidoctor-diagram -o sortie.html entree.adoc
+asciicrystal-diagram -o sortie.html entree.adoc
 ----
 
 == API Bibliotheque
 
 [source,crystal]
 ----
-require "crystal-asciidoctor-diagram"
+require "asciicrystal-diagram"
 
 doc = Asciidoctor.load_file("entree.adoc", {"safe" => "safe"})
 html = doc.converter.not_nil!.convert(doc)

@@ -1,4 +1,4 @@
-module AsciidoctorDiagram
+module AsciicrystalDiagram
   # Describes the input file extension and output handling for a diagram tool.
   record ToolSpec,
     # The document attribute name for the tool path (e.g. "plantuml-path").
