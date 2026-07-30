@@ -1,1 +1,1 @@
-require "./asciidoctor_diagram"
+require "./asciicrystal_diagram"

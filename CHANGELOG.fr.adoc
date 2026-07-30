@@ -3,6 +3,10 @@
 :toc-title: Versions
 :toclevels: 2
 
+== v3.2.1.5 — 2026-07-29
+
+* Renommage du dossier source interne `src/asciidoctor_diagram/` → `src/asciicrystal_diagram/` (chemin interne ; aucun changement d'API). Provenance du gem Ruby conservée.
+
 == v3.2.1.4 — 2026-07-29
 
 * Retrait du target CLI non fonctionnel (`main` pointait vers un artefact de build jamais committé) : ce shard est une extension-bibliothèque, comme `asciicrystal-mathematical`.

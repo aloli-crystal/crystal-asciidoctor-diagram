@@ -1,5 +1,5 @@
 require "spec"
-require "../src/asciidoctor_diagram"
+require "../src/asciicrystal_diagram"
 
 # Unregister global extensions before each test to avoid interference.
 Asciicrystal::Extensions.unregister_all

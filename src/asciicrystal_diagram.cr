@@ -1,7 +1,7 @@
 require "asciicrystal"
-require "./asciidoctor_diagram/cache"
-require "./asciidoctor_diagram/generator"
-require "./asciidoctor_diagram/extension"
+require "./asciicrystal_diagram/cache"
+require "./asciicrystal_diagram/generator"
+require "./asciicrystal_diagram/extension"
 
 module AsciicrystalDiagram
   # Lue au compile-time depuis `shard.yml` via le macro `read_file`.
